@@ -1,3 +1,3 @@
 fun main() {
-    println("test test test")
+    println("häst häst häst")
 }
