@@ -1,3 +1,4 @@
 fun main() {
-    println("häst häst häst")
+    val con = Contact("Jonte", "Yee", "12231", "jonte@ye.com");
+
 }
