@@ -1,4 +1,14 @@
 fun main() {
-    val con = Contact("Jonte", "Yee", "12231", "jonte@ye.com");
+    val book = contactList();
+
+    /*
+    book.addContact("Jonte", "Yee", "123321123", "yee@gmail.com");
+    book.addContact("Sven", "Pung", "321321321", "pung@gmail.com");
+    book.addContact("Stefan", "Feg", "222222", "steffe@yahoo.com");
+     */
+
+    book.readContactsFromFile();
+
+    book.printAll();
 
 }
