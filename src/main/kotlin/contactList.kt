@@ -17,11 +17,32 @@ class contactList {
 
     fun readContactsFromFile() {
         val fileObj = File(filename);
-        val fileContent: String = fileObj.readText();
-        val amountOfContacts: Int = fileContent.count {it == ';'}
+        val fileContentString = fileObj.readText();
 
-        println(amountOfContacts)
+        var fileContent = fileContentString.split(',');
 
+        val amountOfContacts = fileContentString.count { it == ','} / 3;
+
+        for (i in 0 until amountOfContacts)
+        {
+            for (i in fileContent)
+            {
+                println(i);
+            }
+            println("----------------------------");
+            readln();
+
+            contacts.add(Contact(fileContent[0], fileContent[1], fileContent[2], fileContent[3]));
+
+            fileContent = fileContent.drop(4);
+
+        }
     }
 
+    fun printAll() {
+        for (con in contacts)
+        {
+            println("Contact: ${con.first_name}");
+        }
+    }
 }
