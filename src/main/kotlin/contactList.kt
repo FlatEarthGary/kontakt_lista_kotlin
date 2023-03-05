@@ -4,9 +4,9 @@ import java.io.FileOutputStream
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 
-class contactList {
-    var contacts = mutableListOf<Contact>();
-    val filename: String = "contacts_database.txt";
+class ContactList {
+    private var contacts = mutableListOf<Contact>();
+    private val filename: String = "contacts_database.txt";
     fun addContact(first_name: String,last_name: String, phone_number: String, mail: String) {
        contacts.add(Contact(first_name, last_name, phone_number, mail));
     }
@@ -49,10 +49,10 @@ class contactList {
          */
 
         val fileObj = File(filename);
+        fileObj.writeText("");
         for (contact: Contact in contacts) {
             fileObj.appendText("${contact.first_name}\n${contact.last_name}\n${contact.phone_number}\n${contact.mail_address}\n");
         }
-        println("Successfully written to database");
 
     }
 
@@ -72,14 +72,46 @@ class contactList {
             i += 4;
 
         }
-
     }
 
-    fun printAll() {
-        contacts.sortBy { it.first_name  }
+    fun editContact(phone_number: String) {
+        for (contact: Contact in contacts) {
+            if (phone_number == contact.phone_number)
+            {
+                println("Vad vill du ändra?\n[1] Förnamn\n[2] Efternamn\n[3] Telefonnummer\n[4] Mail adress\n\n[>] ");
+                val choice = readln();
+                if (choice == "1")
+                {
+                    println("Förnamn: ${contact.first_name}\nNytt förnamn: ");
+                    contact.first_name = readln();
+                }
+                else if (choice == "2") {
+                    println("Efternamn: ${contact.last_name}\nNytt efternamn: ");
+                    contact.last_name = readln();
+                }
+                else if (choice == "3") {
+                    println("Telefonnummer: ${contact.phone_number}\nNytt telefonnummer: ");
+                    contact.phone_number = readln();
+                }
+                else if (choice == "4") {
+                    println("Mail adress: ${contact.mail_address}\nNy mail adress: ");
+                    contact.mail_address = readln();
+                }
+                else {
+                    println("Icke valbart alternativ!");
+                    return;
+                }
+                saveContactsToFile();
+                return;
+            }
+        }
+        println("Kunde inte hitta kontakten :(");
+    }
+
+    fun printFullContactList() {
         for (con in contacts)
         {
-            println("Contact: ${con.first_name} | ${con.last_name} | ${con.phone_number} | ${con.mail_address}");
+            println("First name: ${con.first_name} | Last name: ${con.last_name} |Phone number: ${con.phone_number} | Mail address: ${con.mail_address}");
         }
     }
 }
