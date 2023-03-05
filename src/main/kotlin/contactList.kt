@@ -10,6 +10,35 @@ class ContactList {
     fun addContact(first_name: String,last_name: String, phone_number: String, mail: String) {
        contacts.add(Contact(first_name, last_name, phone_number, mail));
     }
+    fun removeContact(mail: String)
+    {
+        var tempcontacts = mutableListOf<Contact>();
+        readContactsFromFile();
+        for (contact: Contact in contacts)
+        {
+            if (contact.mail_address != mail)
+            {
+                tempcontacts.add(contact)
+            }
+        }
+        contacts = tempcontacts;
+        saveContactsToFile();
+    }
+    fun editContact(editedContact: Contact, oldEmailAdress: String)
+    {
+        readContactsFromFile();
+        for (contact: Contact in contacts)
+        {
+            if (contact.mail_address == oldEmailAdress)
+            {
+                contact.first_name = editedContact.first_name
+                contact.last_name = editedContact.last_name
+                contact.phone_number = editedContact.phone_number
+                contact.mail_address  = editedContact.mail_address
+            }
+        }
+        saveContactsToFile();
+    }
 
     fun saveContactsToFile() {
         /*
@@ -31,7 +60,7 @@ class ContactList {
         var i = 0;
         val fileObj = File(filename);
         val fileContentString = fileObj.readText();
-
+        contacts.clear();
         var fileContent = fileContentString.split('\n');
 
         val amountOfContacts = fileContentString.count { it == '\n'} / 4;
